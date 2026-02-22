@@ -63,6 +63,13 @@ export default function ResourcePageClient<
     const [deleteId, setDeleteId] = useState<string | null>(null);
     const [deleteLoading, setDeleteLoading] = useState(false);
 
+    const handleRowClick = useCallback(
+        (row: T) => {
+            router.push(`/${tableName}/${row.id}`);
+        },
+        [router, tableName]
+    );
+
     const handleEdit = useCallback((row: T) => {
         setEditData(row);
         setFormOpen(true);
@@ -145,6 +152,7 @@ export default function ResourcePageClient<
                     searchKey={searchKey}
                     searchPlaceholder={`Search ${title.toLowerCase()}...`}
                     onAdd={handleAdd}
+                    onRowClick={handleRowClick}
                     addLabel={`Add ${title.replace(/s$/, "")}`}
                 />
 
@@ -195,7 +203,7 @@ export default function ResourcePageClient<
                         <Card
                             key={item.id as string}
                             className="cursor-pointer hover:shadow-md transition-shadow"
-                            onClick={() => handleEdit(item)}
+                            onClick={() => handleRowClick(item)}
                         >
                             <CardContent className="p-3">
                                 <div className="flex items-start justify-between gap-2">

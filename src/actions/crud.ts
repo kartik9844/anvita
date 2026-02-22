@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { getCurrentUser } from "@/actions/auth";
 import type { TableName } from "@/types/database";
 import { revalidatePath } from "next/cache";
 
@@ -32,9 +33,11 @@ export async function createRecord(
     record: Record<string, unknown>
 ) {
     const supabase = await createClient();
+    const user = await getCurrentUser();
+    const payload = { ...record, created_by: user?.adminId ?? null };
     const { data, error } = await supabase
         .from(tableName)
-        .insert(record)
+        .insert(payload)
         .select()
         .single();
 
@@ -50,9 +53,11 @@ export async function updateRecord(
     record: Record<string, unknown>
 ) {
     const supabase = await createClient();
+    const user = await getCurrentUser();
+    const payload = { ...record, created_by: user?.adminId ?? null };
     const { data, error } = await supabase
         .from(tableName)
-        .update(record)
+        .update(payload)
         .eq("id", id)
         .select()
         .single();

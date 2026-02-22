@@ -1,15 +1,18 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { getCurrentUser } from "@/actions/auth";
 import { revalidatePath } from "next/cache";
 
 export async function createPrompt(record: Record<string, unknown>) {
     const supabase = await createClient();
+    const user = await getCurrentUser();
+    const payload = { ...record, created_by: user?.adminId ?? null };
 
     // 1. Save to Supabase
     const { data, error } = await supabase
         .from("prompts")
-        .insert(record)
+        .insert(payload)
         .select()
         .single();
 
@@ -39,11 +42,13 @@ export async function updatePrompt(
     record: Record<string, unknown>
 ) {
     const supabase = await createClient();
+    const user = await getCurrentUser();
+    const payload = { ...record, created_by: user?.adminId ?? null };
 
     // 1. Update in Supabase
     const { data, error } = await supabase
         .from("prompts")
-        .update(record)
+        .update(payload)
         .eq("id", id)
         .select()
         .single();
