@@ -28,7 +28,7 @@ export default function DesktopChats({ contacts }: DesktopChatsProps) {
 
             <div className="flex border rounded-xl overflow-hidden bg-background shadow-sm h-[calc(100vh-12rem)]">
                 {/* Contact sidebar */}
-                <div className="w-80 border-r shrink-0">
+                <div className="w-80 border-r shrink-0 min-h-0">
                     <ContactList
                         contacts={contacts}
                         selectedNumber={selectedNumber}
@@ -37,7 +37,7 @@ export default function DesktopChats({ contacts }: DesktopChatsProps) {
                 </div>
 
                 {/* Chat area */}
-                <div className="flex-1">
+                <div className="flex-1 min-h-0">
                     <ChatArea
                         messages={messages}
                         loading={loading}

@@ -149,7 +149,7 @@ export default function MobileDashboard({ stats }: MobileDashboardProps) {
                                     className="flex items-start gap-2.5 p-2.5 rounded-lg bg-accent/50"
                                 >
                                     <div className="w-7 h-7 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center shrink-0 mt-0.5">
-                                        <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-300">
+                                        <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-300" suppressHydrationWarning>
                                             {(msg.user_name || msg.user_number || "?")
                                                 .charAt(0)
                                                 .toUpperCase()}

@@ -65,9 +65,9 @@ export default function ChatArea({
     }
 
     return (
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full min-h-0">
             {/* Chat Header */}
-            <div className="border-b px-4 py-3 bg-background/50">
+            <div className="border-b px-4 py-3 bg-background/50 shrink-0">
                 <h3 className="text-sm font-semibold">
                     {contactName || contactNumber}
                 </h3>
@@ -77,8 +77,8 @@ export default function ChatArea({
             </div>
 
             {/* Messages */}
-            <ScrollArea className="flex-1 p-4">
-                <div className="space-y-3 max-w-3xl mx-auto">
+            <ScrollArea className="flex-1 min-h-0">
+                <div className="space-y-3 max-w-3xl mx-auto p-4">
                     {messages.length > 0 ? (
                         messages.map((msg) => (
                             <div key={msg.id} className="space-y-2">
